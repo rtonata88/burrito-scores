@@ -1,15 +1,25 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import _ from 'lodash';
-import './style.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
+import "./style.css";
+import "@fortawesome/fontawesome-free/css/all.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
+import { getSchedules } from "./schedule";
 
-function component() {
-  const element = document.createElement('div');
+const schedules = getSchedules();
+const displaySchedules = () => {
+  //const table = document.getElementById("table-scores");
+  schedules.then((schedule) => {
+    schedule.forEach((item) => {
+      let info = item._embedded;
+      console.log(info.show.name);
+      console.log(info.show.id);
+      numberOfLikes(info.show.id);
+    });
+    //table.innerHTML = tableScoreRow;
+  });
+};
 
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
+const numberOfLikes = (id) => {};
 
-  return element;
-}
-
-document.body.appendChild(component());
+displaySchedules();
