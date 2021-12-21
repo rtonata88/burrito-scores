@@ -4,7 +4,7 @@ export const scheduleEndpoint = function () {
   const date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
-  return `${baseUrl}/schedule/web?date=${date}&country=US`;
+  return `${baseUrl}/schedule/web?date=${date}`;
 };
 export const mainInformationEndpoint = function (id) {
   return `${baseUrl}/shows/${id}?embed=cast`;
