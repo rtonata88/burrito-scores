@@ -1,6 +1,6 @@
 import { scheduleEndpoint } from "./api";
 
-export const getSchedule = async () => {
+export const getSchedules = async () => {
   console.log(scheduleEndpoint());
   const response = await fetch(scheduleEndpoint());
   const schedule = await response.json();
