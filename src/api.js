@@ -1,5 +1,12 @@
 const baseUrl = "https://api.tvmaze.com";
-export const mainInformationUrl = function (id) {
+export const scheduleEndpoint = function () {
+  const today = new Date();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+  return `${baseUrl}/schedule/web?date=${date}&country=US`;
+};
+export const mainInformationEndpoint = function (id) {
   return `${baseUrl}/shows/${id}?embed=cast`;
 };
 export const episodeEndpoint = function (id) {
