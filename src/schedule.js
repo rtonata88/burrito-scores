@@ -17,17 +17,6 @@ export const recordLike = async (data) => {
   });
 };
 
-export const recordComment = async (data) => {
-  await fetch(commentsEndpoint, {
-    method: "POST",
-    body: data,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-};
-
 export const scheduleTitlesCounter = (schedule) => {
   return schedule.length;
 };
