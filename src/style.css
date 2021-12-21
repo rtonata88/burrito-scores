@@ -1,3 +1,9 @@
-* {
-  background-color: white;
+.cover-page{
+  background-image: url('./assets/the-witcher-season-2.jpg');
+  height: 100vh;
 }
+
+h1 {
+  font-size: 48px; 
+}
+ 
