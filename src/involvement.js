@@ -7,7 +7,6 @@ export const getLikes = async () => {
 };
 
 export const recordLike = async (data) => {
-  console.log(data);
   await fetch(likesEndpoint, {
     method: "POST",
     body: data,

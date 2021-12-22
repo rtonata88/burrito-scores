@@ -43,7 +43,9 @@ const displaySchedules = () => {
                                     <small class="text-muted">9 comments</small>
                                     <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
                                       info.show.id
-                                    }"></i> 0</small>
+                                    }"></i> <span id="title-like-${
+        info.show.id
+      }">0</span></small>
                                 </div>
                             </div>
                         </div>
@@ -61,6 +63,14 @@ const displaySchedules = () => {
             item_id: e.target.dataset.id,
           })
         );
+        e.target.classList.add("text-danger");
+
+        let titleLikes = document.getElementById(
+          "title-like-" + e.target.dataset.id
+        );
+        let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
+        numberOfLikes++;
+        titleLikes.innerHTML = numberOfLikes;
       });
     });
   });
