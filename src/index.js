@@ -7,18 +7,21 @@ import getSchedules from "./schedule.js";
 import { getLikes, recordLike } from "./involvement.js";
 
 const schedules = getSchedules();
-// const likes = () => {
-//   let titleLikes = [];
-//   getLikes().then((results) => {
-//     results.forEach((result) => {
-//       //console.log(result);
-//       titleLikes.push(result);
-//       console.log(titleLikes);
-//     });
-//   });
-//   // console.log(titleLikes);
-// };
-// likes();
+const diplayLikes = () => {
+  getLikes().then((results) => {
+    results.forEach((result) => {
+      let showId = result.item_id;
+      let titleLikes = document.getElementById("title-like-" + showId);
+
+      if (titleLikes !== null) {
+        titleLikes.previousElementSibling.classList.add("text-danger");
+        titleLikes.innerHTML = result.likes;
+      }
+    });
+  });
+  // console.log(titleLikes);
+};
+
 const trimTitle = (title) => title.substring(0, 16);
 
 const displaySchedules = () => {
@@ -54,7 +57,7 @@ const displaySchedules = () => {
       // numberOfLikes(info.show.id);
     });
     moviesContainer.innerHTML = container;
-
+    diplayLikes();
     const likes = document.querySelectorAll(".like");
     likes.forEach((like) => {
       like.addEventListener("click", (e) => {
