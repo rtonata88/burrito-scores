@@ -7,4 +7,4 @@ const getSchedules = async () => {
   return schedule;
 };
 
-export default { getSchedules };
+export default getSchedules;

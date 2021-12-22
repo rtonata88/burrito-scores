@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 import './style.css';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { getSchedules } from './schedule.js';
+import getSchedules from './schedule.js';
 
 const schedules = getSchedules();
 const trimTitle = (title) => title.substring(0, 16);
