@@ -66,7 +66,7 @@
                         <i class="fas fa-search"></i>
                     </button>
 
-                    <!-- Seach input -->
+                    <!-- Search input -->
                     <form class="form-inline">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
@@ -107,6 +107,23 @@
             </div>
         </div>
     </main>
+    <button id="Com-btn" class="open-button">Comment</button>
+
+    <div class="comments-form-popup" id="CommentsForm">
+        <form action="" class="form-container">
+          <h1>Leave a comment</h1>
+      
+          <label for="User"><b>Your Username:</b></label>
+          <input type="text" placeholder="User example" required>
+      
+          <label for="comment"><b>Comment:</b></label>
+          <input type="text" placeholder="Leave your comment" required>
+      
+          <button type="submit" class="btn">Comment</button>
+          <button type="button" id="cancel" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>        
+
     <div class="container">
   <footer class="py-5">
     <div class="row">

@@ -20,7 +20,7 @@ const displaySchedules = () => {
                             <div class="card-body">
                                 <p class="text-sm">${trimTitle(info.show.name)}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Comment</button>
+                                    <button type="button" id="demo" class="btn btn-sm btn-outline-secondary">Comments</button>
                                     <small class="text-muted">9 likes</small>
                                 </div>
                             </div>
@@ -36,3 +36,15 @@ const displaySchedules = () => {
 // const numberOfLikes = (id) => {};
 
 displaySchedules();
+
+const CommentsForm = document.getElementById('CommentsForm');
+function openForm() {
+  CommentsForm.style.display = 'block';
+}
+
+function closeForm() {
+  CommentsForm.style.display = 'none';
+}
+
+document.getElementById('Com-btn').addEventListener('click', openForm);
+document.getElementById('cancel').addEventListener('click', closeForm);
