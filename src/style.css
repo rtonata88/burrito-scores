@@ -1,9 +1,60 @@
-.cover-page{
+.cover-page {
   background-image: url('./assets/the-witcher-season-2.jpg');
   height: 100vh;
 }
 
 h1 {
-  font-size: 48px; 
+  font-size: 48px;
 }
- 
+
+.comments-form-popup {
+  display: none;
+  position: fixed;
+  bottom: 25%;
+  right: 35%;
+  left: 35%;
+  z-index: 9;
+  border-radius: 4px 3%;
+}
+
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-container input[type=text] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  background: transparent;
+}
+
+.form-container input[type=text]:focus {
+  background-color: #f1f1f1;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel {
+  background-color: blue;
+}
+
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.likes{
+  cursor: pointer;
+}
