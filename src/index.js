@@ -4,18 +4,30 @@ import "./style.css";
 import no_image from "../src/assets/no_image.png";
 import "@fortawesome/fontawesome-free/css/all.css";
 import getSchedules from "./schedule.js";
+import { getLikes, recordLike } from "./involvement.js";
 
 const schedules = getSchedules();
+// const likes = () => {
+//   let titleLikes = [];
+//   getLikes().then((results) => {
+//     results.forEach((result) => {
+//       //console.log(result);
+//       titleLikes.push(result);
+//       console.log(titleLikes);
+//     });
+//   });
+//   // console.log(titleLikes);
+// };
+// likes();
 const trimTitle = (title) => title.substring(0, 16);
+
 const displaySchedules = () => {
   const myImage = new Image();
   myImage.src = no_image;
-  console.log(no_image);
   const moviesContainer = document.getElementById("movies-container");
   let container = "";
   schedules.then((schedule) => {
     schedule.forEach((item) => {
-      console.log(item);
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
       let image =
@@ -29,7 +41,9 @@ const displaySchedules = () => {
                                 )}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <small class="text-muted">9 comments</small>
-                                    <small class="text-muted">9 likes</small>
+                                    <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
+                                      info.show.id
+                                    }"></i> 0</small>
                                 </div>
                             </div>
                         </div>
@@ -38,6 +52,17 @@ const displaySchedules = () => {
       // numberOfLikes(info.show.id);
     });
     moviesContainer.innerHTML = container;
+
+    const likes = document.querySelectorAll(".like");
+    likes.forEach((like) => {
+      like.addEventListener("click", (e) => {
+        recordLike(
+          JSON.stringify({
+            item_id: e.target.dataset.id,
+          })
+        );
+      });
+    });
   });
 };
 

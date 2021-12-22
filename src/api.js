@@ -17,7 +17,7 @@ export const seasonsEndpoint = (id) => `${baseUrl}/shows/${id}/seasons`;
 export const castsEndpoint = (id) => `${baseUrl}/shows/${id}/cast`;
 
 export const involvementBaseUrl =
-  "https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/";
+  "https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps";
 export const appId = "Jt5YzjOBNLKzr84EQRZx";
 export const likesEndpoint = `${involvementBaseUrl}/${appId}/likes`;
 export const commentsEndpoint = `${involvementBaseUrl}/${appId}/comments`;
