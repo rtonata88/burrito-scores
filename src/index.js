@@ -22,6 +22,11 @@ const diplayLikes = () => {
   // console.log(titleLikes);
 };
 
+const displayTitleCount = (count) => {
+  const titleCountContainer = document.getElementById("title-count");
+  titleCountContainer.innerHTML = `(${count})`;
+};
+
 const trimTitle = (title) => title.substring(0, 16);
 
 const displaySchedules = () => {
@@ -29,7 +34,9 @@ const displaySchedules = () => {
   myImage.src = no_image;
   const moviesContainer = document.getElementById("movies-container");
   let container = "";
+
   schedules.then((schedule) => {
+    displayTitleCount(schedule.length);
     schedule.forEach((item) => {
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
