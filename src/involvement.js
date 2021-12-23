@@ -30,4 +30,7 @@ export const recordComment = async (newComment) => {
 
 export const scheduleTitlesCounter = (schedule) => schedule.length;
 
-export const commentsCounter = (comments) => comments.length;
+export const commentsCounter = (comments) => {
+  const count = comments.length ? comments.length : 0;
+  return count;
+};
