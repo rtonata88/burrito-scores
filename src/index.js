@@ -42,6 +42,11 @@ const recordLikeInteraction = () => {
   });
 };
 
+const titlesCount = (count) => {
+  displayTitleCount(count);
+  return count;
+};
+
 const displayTitleCount = (count) => {
   const titleCountContainer = document.getElementById("title-count");
   titleCountContainer.innerHTML = `(${count})`;
@@ -56,7 +61,7 @@ const displaySchedules = () => {
   let container = "";
 
   schedules.then((schedule) => {
-    displayTitleCount(schedule.length);
+    titlesCount(schedule.length);
     schedule.forEach((item) => {
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
