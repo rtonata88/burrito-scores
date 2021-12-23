@@ -5,7 +5,7 @@ export const scheduleEndpoint = () => {
     today.getMonth() + 1
   }-${today.getDate()}`;
 
-  return `${baseUrl}/schedule/web?date=2021-12-21`;
+  return `${baseUrl}/schedule/web?date=${date}`;
 };
 export const mainInformationEndpoint = (id) =>
   `${baseUrl}/shows/${id}?embed=cast`;
