@@ -19,7 +19,27 @@ const diplayLikes = () => {
       }
     });
   });
-  // console.log(titleLikes);
+};
+
+const recordLikeInteraction = () => {
+  const likes = document.querySelectorAll(".like");
+  likes.forEach((like) => {
+    like.addEventListener("click", (e) => {
+      recordLike(
+        JSON.stringify({
+          item_id: e.target.dataset.id,
+        })
+      );
+      e.target.classList.add("text-danger");
+
+      let titleLikes = document.getElementById(
+        "title-like-" + e.target.dataset.id
+      );
+      let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
+      numberOfLikes++;
+      titleLikes.innerHTML = numberOfLikes;
+    });
+  });
 };
 
 const displayTitleCount = (count) => {
@@ -65,24 +85,7 @@ const displaySchedules = () => {
     });
     moviesContainer.innerHTML = container;
     diplayLikes();
-    const likes = document.querySelectorAll(".like");
-    likes.forEach((like) => {
-      like.addEventListener("click", (e) => {
-        recordLike(
-          JSON.stringify({
-            item_id: e.target.dataset.id,
-          })
-        );
-        e.target.classList.add("text-danger");
-
-        let titleLikes = document.getElementById(
-          "title-like-" + e.target.dataset.id
-        );
-        let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
-        numberOfLikes++;
-        titleLikes.innerHTML = numberOfLikes;
-      });
-    });
+    recordLikeInteraction();
   });
 };
 
