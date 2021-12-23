@@ -50,7 +50,9 @@ const displaySchedules = () => {
     info.show.name,
   )}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">9 comments</small>
+                                <div id="maincontent">
+                                  <button id="button" type="button" class="btn btn-sm btn-outline-secondary">Details</button>
+                                </div>
                                     <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
   info.show.id
 }"></i> <span id="title-like-${info.show.id}">0</span></small>
@@ -88,3 +90,20 @@ const displaySchedules = () => {
 // const numberOfLikes = (id) => {};
 
 displaySchedules();
+
+const closePopup = document.getElementById('popupclose');
+const overlay = document.getElementById('overlay');
+const popup = document.getElementById('popup');
+const button = document.getElementById('button');
+// Close Popup Event
+// eslint-disable-next-line func-names
+closePopup.onclick = function () {
+  overlay.style.display = 'none';
+  popup.style.display = 'none';
+};
+// Show Overlay and Popup
+// eslint-disable-next-line func-names
+button.onclick = function () {
+  overlay.style.display = 'block';
+  popup.style.display = 'block';
+};
