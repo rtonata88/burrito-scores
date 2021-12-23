@@ -4,7 +4,7 @@ import './style.css';
 import noImage from './assets/no_image.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 import getSchedules from './schedule.js';
-import { getLikes, recordLike } from './involvement.js';
+import { getLikes, recordLike, getComments } from './involvement.js';
 
 const schedules = getSchedules();
 const diplayLikes = () => {
@@ -20,6 +20,19 @@ const diplayLikes = () => {
     });
   });
   // console.log(titleLikes);
+};
+
+const displaycommentsPopup = () => {
+  getComments().then((results) => {
+    console.log(results);
+    results.forEach((result) => {
+      const showId = result.item_id;
+      const titleComments = document.getElementById(`comment-size-${showId}`);
+      if (titleComments !== null) {
+        titleComments.previousElementSibling.classList.add('text-success');
+      }titleComments.innerHTML = result.comments;
+    });
+  });
 };
 
 const displayTitleCount = (count) => {
@@ -46,16 +59,13 @@ const displaySchedules = () => {
                         <div class="card shadow-sm">
                             <img src="${image}" alt="${info.show.name}">
                             <div class="card-body">
-                                <p class="text-sm">${trimTitle(
-    info.show.name,
-  )}</p>
+                                <p class="text-sm">${trimTitle(info.show.name)}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                 <div id="maincontent">
                                   <button id="button" type="button" class="btn btn-sm btn-outline-secondary">Details</button>
                                 </div>
-                                    <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
-  info.show.id
-}"></i> <span id="title-like-${info.show.id}">0</span></small>
+                                    <small class="text-muted likes"><i class="fas fa-heart like" data-id="${info.show.id}"></i> <span id="title-like-${info.show.id}">0</span></small>
+                                    <small class="text-muted"><i class="fas fa-comment comment" data-id="${info.show.id}"></i> <span id="comment-size-${info.show.id}">0</span></small> 
                                 </div>
                             </div>
                         </div>
@@ -65,6 +75,7 @@ const displaySchedules = () => {
     });
     moviesContainer.innerHTML = container;
     diplayLikes();
+    displaycommentsPopup();
     const likes = document.querySelectorAll('.like');
     likes.forEach((like) => {
       like.addEventListener('click', (e) => {
@@ -88,7 +99,7 @@ const displaySchedules = () => {
 };
 
 // const numberOfLikes = (id) => {};
-
+// displaycommentsPopup();
 displaySchedules();
 
 const closePopup = document.getElementById('popupclose');

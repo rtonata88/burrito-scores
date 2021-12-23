@@ -1,7 +1,18 @@
 import { likesEndpoint, commentsEndpoint } from './api.js';
 
+export const commentsCounter = (comments) => {
+  const count = comments.length ? comments.length : 0;
+  return count;
+};
+
 export const getLikes = async () => {
   const response = await fetch(likesEndpoint);
+  const likes = await response.json();
+  return likes;
+};
+
+export const getComments = async () => {
+  const response = await fetch(commentsEndpoint);
   const likes = await response.json();
   return likes;
 };
@@ -18,9 +29,9 @@ export const recordLike = async (data) => {
 };
 
 export const recordComment = async (newComment) => {
-  await fetch(commentsEndpoint(), {
+  await fetch(commentsEndpoint, {
     method: 'POST',
-    body: JSON.stringify(newComment),
+    body: JSON.stringify(newComment), // TODO test without strng
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -29,8 +40,3 @@ export const recordComment = async (newComment) => {
 };
 
 export const scheduleTitlesCounter = (schedule) => schedule.length;
-
-export const commentsCounter = (comments) => {
-  const count = comments.length ? comments.length : 0;
-  return count;
-};
