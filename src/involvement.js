@@ -11,10 +11,10 @@ export const getLikes = async () => {
   return likes;
 };
 
-export const getComments = async () => {
-  const response = await fetch(commentsEndpoint);
-  const likes = await response.json();
-  return likes;
+export const getComments = async (id) => {
+  const response = await fetch(`${commentsEndpoint}/comments?item_id=${id}`);
+  const comments = await response.json();
+  return comments;
 };
 
 export const recordLike = async (data) => {
@@ -31,7 +31,9 @@ export const recordLike = async (data) => {
 export const recordComment = async (newComment) => {
   await fetch(commentsEndpoint, {
     method: 'POST',
-    body: JSON.stringify(newComment), // TODO test without strng
+    body: JSON.stringify({
+      item_id: newComment,
+    }), // TODO test without strng
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

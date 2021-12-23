@@ -24,7 +24,7 @@ const diplayLikes = () => {
 
 const displaycommentsPopup = () => {
   getComments().then((results) => {
-    console.log(results);
+    // console.log(results);
     results.forEach((result) => {
       const showId = result.item_id;
       const titleComments = document.getElementById(`comment-size-${showId}`);
