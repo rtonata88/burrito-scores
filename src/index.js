@@ -4,7 +4,8 @@ import './style.css';
 import noImage from './assets/no_image.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 import getSchedules from './schedule.js';
-import { getLikes, recordLike, getComments } from './involvement.js';
+import { getLikes, recordLike } from './involvement.js';
+import displaycommentsPopup from './displayComments.js';
 
 const schedules = getSchedules();
 const diplayLikes = () => {
@@ -22,18 +23,18 @@ const diplayLikes = () => {
   // console.log(titleLikes);
 };
 
-const displaycommentsPopup = () => {
-  getComments().then((results) => {
-    // console.log(results);
-    results.forEach((result) => {
-      const showId = result.item_id;
-      const titleComments = document.getElementById(`comment-size-${showId}`);
-      if (titleComments !== null) {
-        titleComments.previousElementSibling.classList.add('text-success');
-      }titleComments.innerHTML = result.comments;
-    });
-  });
-};
+// const displayconterComments = () => {
+//   getComments().then((results) => {
+//     // console.log(results);
+//     results.forEach((result) => {
+//       const showId = result.item_id;
+//       const titleComments = document.getElementById(`comment-size-${showId}`);
+//       if (titleComments !== null) {
+//         titleComments.previousElementSibling.classList.add('text-success');
+//       }titleComments.innerHTML = result.comments;
+//     });
+//   });
+// };
 
 const displayTitleCount = (count) => {
   const titleCountContainer = document.getElementById('title-count');
@@ -99,7 +100,7 @@ const displaySchedules = () => {
 };
 
 // const numberOfLikes = (id) => {};
-// displaycommentsPopup();
+displaycommentsPopup();
 displaySchedules();
 
 const closePopup = document.getElementById('popupclose');
