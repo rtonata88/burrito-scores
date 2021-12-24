@@ -1,125 +1,153 @@
-import * as bootstrap from 'bootstrap';
-import { getMovieInformation } from './schedule.js';
-import { recordComment, getComments } from './involvement.js';
-import noImage from './assets/no_image.png';
+import * as bootstrap from "bootstrap";
+import { getMovieInformation } from "./schedule.js";
+import { recordComment, getComments } from "./involvement.js";
+import noImage from "./assets/no_image.png";
+
+const displayCommentsCount = (count) => {
+  const commentsCountContainer = document.getElementById("comments-count");
+  commentsCountContainer.innerHTML = `(${count})`;
+};
+
+const commentsCount = (count) => {
+  if (count > 0) {
+    displayCommentsCount(count);
+  } else {
+    const commentsCountContainer = document.getElementById("comments-count");
+    commentsCountContainer.innerHTML = "";
+  }
+
+  return count;
+};
 
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
-    const commentrow = document.getElementById('comment-row');
-    if (!comments.length) comments = [];
-    const Mylength = comments.length;
-    const h3 = document.createElement('h3');
-    h3.innerHTML += `
-    <h3>Comments: ${Mylength}</h3>
-    `;
-    commentrow.appendChild(h3);
-    comments.forEach((comment) => {
-      const pContent = document.createElement('p');
-      pContent.classList.add('col-md-8');
-      pContent.innerHTML += `
-      <i class="fas fa-calendar"></i>  ${comment.creation_date}
-      <i class="fas fa-user"></i><b> ${comment.username}</b>
-        : ${comment.comment}
-          ${comment.comment.length}
-        `;
-      commentrow.appendChild(pContent);
-    });
+    commentsCount(comments.length);
+    console.log(comments);
+    if (comments.length > 0) {
+      let commentsContainer = document.getElementById("comments-container");
+
+      let commentsContent = "";
+      comments.forEach((comment) => {
+        commentsContent += `<p>
+                            ${comment.comment}
+                            <figcaption class="blockquote-footer">
+                              <em><strong>${comment.username}</strong> on </em><cite>${comment.creation_date}</cite>
+                            </figcaption>
+                            <hr>
+                          </p>`;
+      });
+      commentsContainer.innerHTML = commentsContent;
+    } else {
+      commentsContainer.innerHTML = "<em>No comments</em>";
+    }
   });
 };
 
 const saveComment = () => {
-  const comments = document.querySelector('.commentBtn');
-  comments.addEventListener('click', (e) => {
-    const username = document.querySelector('#username').value;
-    const comment = document.querySelector('#comment').value;
+  const comments = document.querySelector(".commentBtn");
+  comments.addEventListener("click", (e) => {
+    const username = document.querySelector("#username").value;
+    const comment = document.querySelector("#comment").value;
+    const commentSuccessMessage = document.getElementById(
+      "comment-success-message"
+    );
     recordComment(
       JSON.stringify({
         item_id: e.target.dataset.id,
         username,
         comment,
-      }),
+      })
     );
-    document.querySelector('#username').value = '';
-    document.querySelector('#comment').value = '';
+    commentSuccessMessage.classList.remove("d-none");
+    document.querySelector("#username").value = "";
+    document.querySelector("#comment").value = "";
+
+    const today = new Date();
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
+    var newComment = document.createElement("p");
+    newComment.innerHTML = `<p>
+                            ${comment}
+                            <figcaption class="blockquote-footer">
+                              <em><strong>${username}</strong> on </em><cite>${date}</cite>
+                            </figcaption>
+                            <hr>
+                          </p>`;
+    let commentsContainer = document.getElementById("comments-container");
+    commentsContainer.appendChild(newComment);
   });
 };
 
 const displaycommentsPopup = () => {
-  const showDetails = document.querySelectorAll('.show-details');
-  const modal = new bootstrap.Modal(document.getElementById('myModal'));
+  const showDetails = document.querySelectorAll(".show-details");
+  const modal = new bootstrap.Modal(document.getElementById("myModal"));
   const myImage = new Image();
   myImage.src = noImage;
 
   showDetails.forEach((detail) => {
-    detail.addEventListener('click', (e) => {
+    detail.addEventListener("click", (e) => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
-      movieInformation.then((info) => {
-        const image = info.image.original === null ? myImage.src : info.image.original;
-        const movieContainer = document.getElementById('movieContainer');
-        const movieHtmlContent = `
-                                <section class="row">
-                                  <h3>${info.name}:
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i> 
-                                    <i class="far fa-star"></i>
-                                  </h3>
-                                    <section class="col-md-4">
-                                      <img src="${image}" alt="${info.image}" width="300px" class="img-fluid">
-                                    </section>
-                                    <section class="col-md-8">
-                                  <table class="table">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col">About: </th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <th scope="row">Premiered : </th>
-                                          <td>${info.premiered}</td>
-                                        </tr>
-                                        <tr class="table-light">
-                                          <th scope="row">Languages : </th>
-                                          <td>${info.language}</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">Schedule : </th>
-                                          <td>${info.schedule.days}</td>
-                                        </tr>
-                                        <tr class="table-light">
-                                          <th scope="row">Status : </th>
-                                          <td>${info.status}</td>
-                                        </tr>
-                                      </tbody>
-                                  </table>
-                                  <h3>Summary : </h3>
-                                  <p>${info.summary}</p>
-                                    </section>
-                                </section>
-                                <section class="row mt-3">
-                                    <section class="col-md-4">
-                                    <h3>Leave a comment!</h3>
-                                      <div class="mb-3">
-                                        <input type="text" class="form-control" id="username" placeholder="Your name">
-                                      </div>
-                                      <div class="mb-3">
-                                        <textarea class="form-control" id="comment" rows="3" placeholder="Type your commet here"></textarea>
-                                      </div>
-                                      <div class="mt-3">
-                                        <buttton class="btn btn-dark commentBtn" data-id="${info.id}">Submit</button>
-                                      </div>
-                                    </section>
-                                    <section class="col-md-8" id="comment-row">
-                                    </section>
-                                </section>`;
+      const movieInfoContainer = document.getElementById("movie-info");
+      movieInfoContainer.innerHTML = "";
 
-        movieContainer.innerHTML = movieHtmlContent;
+      const movieTitle = document.getElementById("movie-title");
+      movieTitle.innerHTML = "";
+
+      const movieCoverImage = document.getElementById("movie-cover-image");
+      movieCoverImage.innerHTML = "";
+
+      const commentsForm = document.getElementById("comments-form");
+      commentsForm.innerHTML = "";
+
+      movieInformation.then((info) => {
+        const image = info.image === null ? myImage.src : info.image.original;
+        const coverImageContent = `<img src="${image}" alt="${info.name}" class="rounded img-fluid"></img>`;
+        const movieInfoContent = `<p><small>${info.summary}</small></p>
+                                  <hr>
+                                    <dl class="row">
+                                      <dt class="col-sm-3">Name:</dt>
+                                      <dd class="col-sm-9">${info.name}</dd>
+
+                                      <dt class="col-sm-3">Language:</dt>
+                                      <dd class="col-sm-9">${info.language}</dd>
+
+                                      <dt class="col-sm-3">Premiered:</dt>
+                                      <dd class="col-sm-9">${info.premiered}</dd>
+
+                                      <dt class="col-sm-3">Status:</dt>
+                                      <dd class="col-sm-9">${info.status}</dd>
+                                      <dt class="col-sm-3">Website:</dt>
+                                      <dd class="col-sm-9"><a href="${info.url}" target="__blank" >${info.url}</a></dd>
+                                    </dl>`;
+
+        const commentsFormContent = `<h6>Leave a comment</h6>
+                                        <div class="mb-3">
+                                          <input type="text" class="form-control rounded" id="username" placeholder="Your name">
+                                        </div>
+                                        <div class="mb-3">
+                                          <textarea class="form-control" id="comment" rows="3" placeholder="Type your commet here"></textarea>
+                                        </div>
+                                        <div class="mt-3">
+                                          <buttton class="btn btn-dark commentBtn" data-id="${info.id}">Submit</button>
+                                        </div>`;
+
+        movieTitle.innerHTML = `<h6><strong>${info.name}</strong></h6>`;
+        movieCoverImage.innerHTML = coverImageContent;
+        movieInfoContainer.innerHTML = movieInfoContent;
+        commentsForm.innerHTML = commentsFormContent;
         saveComment();
       });
+
       modal.show();
       displayComments(movieId);
+
+      const commentSuccessMessage = document.getElementById(
+        "comment-success-message"
+      );
+      commentSuccessMessage.classList.add("d-none");
     });
   });
 };

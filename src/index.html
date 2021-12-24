@@ -108,18 +108,42 @@
     </div>
   </main>
 
-  <div class="modal fade" id="myModal" aria-hidden="true">
+  <div class="modal fade" id="myModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
         </div>
         <div class="modal-body">
-          <div id="movieContainer">
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <div class="row"></div>
+              <div id="movie-cover-image"></div>
+              <h6 class="text-italic text-center mt-1" id="movie-title"></h6>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <div class="card shadow-sm p-3 mb-5 bg-light rounded">
+                <div class="card-body">
+                  <p><strong>Summary:</strong></p>
+                  <div id="movie-info"></div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back</button>
+          <div class="row p-3 bg-light mb-2">
+           <h6> <strong>Comments <span id="comments-count"></strong></span></h6>
+            <div id="comments-container" class="card shadow-sm p-3 mb-5 bg-light rounded">
+              <em>No comments</em>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-sm-12 mx-auto">
+              <div class="alert alert-success d-none" role="alert" id="comment-success-message">
+                Thank you! Your comment has been saved.
+              </div>
+                <div id="comments-form"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
