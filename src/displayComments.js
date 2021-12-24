@@ -1,20 +1,19 @@
 import * as bootstrap from 'bootstrap';
 import { getMovieInformation } from './schedule.js';
 import { recordComment, getComments } from './involvement.js';
-// import commentCounter from './commentsCounter.js';
 import noImage from './assets/no_image.png';
 
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
     comments.forEach((comment) => {
-      // const movieContainer = document.getElementById('movieContainer');
       const commentrow = document.getElementById('comment-row');
       const pContent = document.createElement('p');
       pContent.classList.add('col-md-8');
       pContent.innerHTML += `
-      <i class="fas fa-user"></i><b> ${comment.username}</b>
       <i class="fas fa-calendar"></i>  ${comment.creation_date}
-      <i class="fas fa-comment"></i>  ${comment.comment}
+      <i class="fas fa-user"></i><b> ${comment.username}</b>
+        : ${comment.comment}
+          ${comment.comment.length}
         `;
       commentrow.appendChild(pContent);
     });
@@ -35,9 +34,6 @@ const saveComment = () => {
     );
     document.querySelector('#username').value = '';
     document.querySelector('#comment').value = '';
-    setTimeout(() => {
-      saveComment();
-    }, 1000);
   });
 };
 
@@ -52,18 +48,53 @@ const displaycommentsPopup = () => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
       movieInformation.then((info) => {
-        // console.log(info);
+        console.log(info);
         // TODO ADD INFO
         const image = info.image.original === null ? myImage.src : info.image.original;
         const movieContainer = document.getElementById('movieContainer');
         const movieHtmlContent = `
                                 <section class="row">
-                                  <h3>${info.name}</h3>
+                                  <h3>${info.name}:
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i> 
+                                    <i class="far fa-star"></i>
+                                  </h3>
                                     <section class="col-md-4">
                                       <img src="${image}" alt="${info.image}" width="300px" class="img-fluid">
                                     </section>
                                     <section class="col-md-8">
-                                      <h1>Hola Mundo</h1>
+                                  <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">About: </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">Premiered : </th>
+                                          <td>${info.premiered}</td>
+                                        </tr>
+                                        <tr class="table-light">
+                                          <th scope="row">Languages : </th>
+                                          <td>${info.language}</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">Schedule : </th>
+                                          <td>${info.schedule.days}</td>
+                                        </tr>
+                                        <tr class="table-light">
+                                          <th scope="row">Status : </th>
+                                          <td>${info.status}</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">Type : </th>
+                                          <td>${info.schedule.type}</td>
+                                        </tr>
+                                      </tbody>
+                                  </table>
+                                  <h3>Summary : </h3>
+                                  <p>${info.summary}</p>
                                     </section>
                                 </section>
                                 <section class="row mt-3">
