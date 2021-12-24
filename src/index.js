@@ -1,17 +1,18 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap";
 import "./style.css";
-import no_image from "../src/assets/no_image.png";
+import noImage from "./assets/no_image.png";
 import "@fortawesome/fontawesome-free/css/all.css";
-import getSchedules from "./schedule.js";
+import { getSchedules } from "./schedule.js";
 import { getLikes, recordLike } from "./involvement.js";
+import displaycommentsPopup from "./displayComments.js";
 
 const schedules = getSchedules();
 const diplayLikes = () => {
   getLikes().then((results) => {
     results.forEach((result) => {
-      let showId = result.item_id;
-      let titleLikes = document.getElementById("title-like-" + showId);
+      const showId = result.item_id;
+      const titleLikes = document.getElementById(`title-like-${showId}`);
 
       if (titleLikes !== null) {
         titleLikes.previousElementSibling.classList.add("text-danger");
@@ -32,19 +33,15 @@ const recordLikeInteraction = () => {
       );
       e.target.classList.add("text-danger");
 
-      let titleLikes = document.getElementById(
-        "title-like-" + e.target.dataset.id
+      const titleLikes = document.getElementById(
+        `title-like-${e.target.dataset.id}`
       );
       let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
+      // eslint-disable-next-line no-plusplus
       numberOfLikes++;
       titleLikes.innerHTML = numberOfLikes;
     });
   });
-};
-
-const titlesCount = (count) => {
-  displayTitleCount(count);
-  return count;
 };
 
 const displayTitleCount = (count) => {
@@ -52,22 +49,34 @@ const displayTitleCount = (count) => {
   titleCountContainer.innerHTML = `(${count})`;
 };
 
+const titlesCount = (count) => {
+  displayTitleCount(count);
+  return count;
+};
+
 const trimTitle = (title) => title.substring(0, 16);
 
 const displaySchedules = () => {
   const myImage = new Image();
-  myImage.src = no_image;
+  // eslint-disable-next-line camelcase
+  myImage.src = noImage;
   const moviesContainer = document.getElementById("movies-container");
   let container = "";
 
   schedules.then((schedule) => {
-    titlesCount(schedule.length);
+    let titlesArray = [];
+
     schedule.forEach((item) => {
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
-      let image =
-        info.show.image === null ? myImage.src : info.show.image.medium;
-      container += `<div class="col-md-2 col-sm-12">
+      if (!titlesArray.includes(info.show.id)) {
+        titlesArray.push(info.show.id);
+
+        const image =
+          info.show.image === null ? myImage.src : info.show.image.medium;
+        container += `<div class="col-md-2 col-sm-12" id="movie-${
+          info.show.id
+        }">
                         <div class="card shadow-sm">
                             <img src="${image}" alt="${info.show.name}">
                             <div class="card-body">
@@ -75,25 +84,31 @@ const displaySchedules = () => {
                                   info.show.name
                                 )}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">9 comments</small>
+                                <div id="maincontent">
+                                  <button type="button" class="btn btn-sm btn-outline-secondary show-details" data-id="${
+                                    info.show.id
+                                  }">Details</button>
+                                </div>
                                     <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
                                       info.show.id
                                     }"></i> <span id="title-like-${
-        info.show.id
-      }">0</span></small>
+          info.show.id
+        }">0</span></small> 
                                 </div>
                             </div>
                         </div>
                     </div>`;
-
-      // numberOfLikes(info.show.id);
+      }
     });
+    titlesCount(titlesArray.length);
     moviesContainer.innerHTML = container;
     diplayLikes();
+    displaycommentsPopup();
     recordLikeInteraction();
   });
 };
 
-// const numberOfLikes = (id) => {};
-
+displaycommentsPopup();
 displaySchedules();
+
+export default displayTitleCount();
