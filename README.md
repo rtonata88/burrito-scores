@@ -11,7 +11,7 @@ Burrito Scores is a TV Shows portal that displays TV shows currently being strea
 
 ## Live Demo
 
-- [Demo link](https://rtonata88.github.io/burrito-scores/)
+- [Demo link](https://rtonata88.github.io/burrito-scores/dist/)
 - [Video link](https://youtu.be/OPseai1PSvA)
 
 
