@@ -1,11 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wbpack Exercise</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burrito Score</title>
 </head>
+
 <body>
-    <h1>This was fun</h1>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <img src="https://tacotimenw.com/wp-content/uploads/2018/10/Classic-Burrito-VEGGIE-343x300.png" height="60"
+              alt="BurritoLogo" loading="lazy" />
+          </a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                Home
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                Pages
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                TV Shows
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <!-- Icon -->
+          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+
+          <!-- Search input -->
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          </form>
+
+          <!-- Avatar -->
+          <div class="mx-3">
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <img src="https://toppng.com/uploads/preview/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png"
+                class="rounded-circle" height="40" alt="Black and White Portrait of a Man" loading="lazy" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="py-5 text-left container-fluid cover-page">
+      <div class="row py-lg-5">
+        <h1 class="text-white">The Witcher S2</h1>
+        <div class="col-lg-6 col-md-8">
+          <p class="lead text-white fw-light">The worst monsters are the ones we create. Death comes for all of us,
+            eventually. The only way to cheat it is to have a legacy.</p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">WATCH NOW</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <h2>What's on today <span id="title-count"></span></h2>
+        <p class="text-muted">
+          New TV series that are showing today in the US and watch them online now.
+        </p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="movies-container">
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="myModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <div class="row"></div>
+              <div id="movie-cover-image"></div>
+              <h6 class="text-italic text-center mt-1" id="movie-title"></h6>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <div class="card shadow-sm p-3 mb-5 bg-light rounded">
+                <div class="card-body">
+                  <p><strong>Summary:</strong></p>
+                  <div id="movie-info"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-3 bg-light mb-2">
+           <h6><strong>Comments (<span id="comments-count">0</span></strong>)</h6>
+            <div id="comments-container" class="card shadow-sm p-3 mb-5 bg-light rounded">
+              <em>No comments</em>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-sm-12 mx-auto">
+              <div class="alert alert-success d-none" role="alert" id="comment-success-message">
+                Thank you! Your comment has been saved.
+              </div>
+                <div class="alert alert-danger d-none" role="alert" id="comment-error-message">
+                Please complete all mandatory fields.
+              </div>
+                <div id="comments-form"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-2">
+          <h5>Genres</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Adventure</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Commedy</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Action</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Sci-fi</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Drama</a></li>
+          </ul>
+        </div>
+
+        <div class="col-2">
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Classics</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">TV Shows</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Documentaries</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Romance</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Reality</a></li>
+          </ul>
+        </div>
+
+        <div class="col-2">
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Adventure</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Commedy</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Action</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Sci-fi</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Drama</a></li>
+          </ul>
+        </div>
+
+        <div class="col-4 offset-1">
+          <form>
+            <h5>Subscribe to our newsletter</h5>
+            <p>Monthly digest of whats new and exciting from us.</p>
+            <div class="d-flex w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden">Email address</label>
+              <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between py-4 my-4 border-top">
+        <p>© 2021 Burrito Media, Inc. All rights reserved.</p>
+        <ul class="list-unstyled d-flex">
+          <li class="ms-3"><a class="link-dark" href="#"></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"></a></li>
+          <li class="ms-3"><a class="link-dark" href="#"></a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
 </body>
+
 </html>

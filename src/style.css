@@ -1,3 +1,120 @@
-body {
-    background-color: bisque;
+.cover-page {
+  background-image: url('./assets/the-witcher-season-2.jpg');
+  height: 100vh;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+.comments-form-popup {
+  display: none;
+  position: fixed;
+  bottom: 25%;
+  right: 35%;
+  left: 35%;
+  z-index: 9;
+  border-radius: 4px 3%;
+}
+
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-container input[type=text] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  background: transparent;
+}
+
+.form-container input[type=text]:focus {
+  background-color: #f1f1f1;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel {
+  background-color: blue;
+}
+
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.likes {
+  cursor: pointer;
+}
+
+#overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #999;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #20222980;
+  padding: 2% 5% 12% 5%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+#popupclose {
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  margin: 5px;
+  padding-top: 1px;
+  font-size: 20px;
+  color: red;
+}
+
+.popupcontent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #77838f;
+  border-radius: 0 0 10px 10px;/* overflow-y: scroll; */
+  padding: 25px;
+  box-shadow: -1px 1px 15px -1px #dbd7d7bf;
+  -webkit-box-shadow: -1px 1px 15px -1px #dbd7d7bf;
+  -moz-box-shadow: -1px 1px 15px -1px #dbd7d7bf;
+}
+
+#button {
+  cursor: pointer;
+}
+
+.pop-image {
+  width: 75%;
+  border-radius: 10px;
+  box-shadow: -1px 1px 10px -1px #dbd7d7bf;
 }
