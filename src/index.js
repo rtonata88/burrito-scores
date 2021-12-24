@@ -4,7 +4,7 @@ import './style.css';
 import noImage from './assets/no_image.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { getSchedules } from './schedule.js';
-import { getLikes, recordLike, getComments } from './involvement.js';
+import { getLikes, recordLike } from './involvement.js';
 import displaycommentsPopup from './displayComments.js';
 
 const schedules = getSchedules();
@@ -20,7 +20,33 @@ const diplayLikes = () => {
       }
     });
   });
-  // console.log(titleLikes);
+};
+
+const recordLikeInteraction = () => {
+  const likes = document.querySelectorAll('.like');
+  likes.forEach((like) => {
+    like.addEventListener('click', (e) => {
+      recordLike(
+        JSON.stringify({
+          item_id: e.target.dataset.id,
+        })
+      );
+      e.target.classList.add('text-danger');
+
+      const titleLikes = document.getElementById(
+        `title-like-${e.target.dataset.id}`,
+      );
+      let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
+      // eslint-disable-next-line no-plusplus
+      numberOfLikes++;
+      titleLikes.innerHTML = numberOfLikes;
+    });
+  });
+};
+
+const titlesCount = (count) => {
+  displayTitleCount(count);
+  return count;
 };
 
 const displayTitleCount = (count) => {
@@ -38,7 +64,7 @@ const displaySchedules = () => {
   let container = '';
 
   schedules.then((schedule) => {
-    displayTitleCount(schedule.length);
+    titlesCount(schedule.length);
     schedule.forEach((item) => {
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
@@ -75,27 +101,8 @@ const displaySchedules = () => {
     });
     moviesContainer.innerHTML = container;
     diplayLikes();
-    DisplayCountComments();
     displaycommentsPopup();
-    const likes = document.querySelectorAll('.like');
-    likes.forEach((like) => {
-      like.addEventListener('click', (e) => {
-        recordLike(
-          JSON.stringify({
-            item_id: e.target.dataset.id,
-          }),
-        );
-        e.target.classList.add('text-danger');
-
-        const titleLikes = document.getElementById(
-          `title-like-${e.target.dataset.id}`,
-        );
-        let numberOfLikes = parseInt(titleLikes.innerHTML, 10);
-        // eslint-disable-next-line no-plusplus
-        numberOfLikes++;
-        titleLikes.innerHTML = numberOfLikes;
-      });
-    });
+    recordLikeInteraction();
   });
 };
 

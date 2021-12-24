@@ -1,12 +1,11 @@
 const baseUrl = 'https://api.tvmaze.com';
 export const scheduleEndpoint = () => {
   const today = new Date();
-  // eslint-disable-next-line no-unused-vars
   const date = `${today.getFullYear()}-${
     today.getMonth() + 1
   }-${today.getDate()}`;
 
-  return `${baseUrl}/schedule/web?date=2021-12-21`;
+  return `${baseUrl}/schedule/web?date=${date}`;
 };
 export const mainInformationEndpoint = (id) => `${baseUrl}/shows/${id}`;
 
