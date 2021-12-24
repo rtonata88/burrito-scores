@@ -5,8 +5,15 @@ import noImage from './assets/no_image.png';
 
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
+    const commentrow = document.getElementById('comment-row');
+    if (!comments.length) comments = [];
+    const Mylength = comments.length;
+    const h3 = document.createElement('h3');
+    h3.innerHTML += `
+    <h3>Comments: ${Mylength}</h3>
+    `;
+    commentrow.appendChild(h3);
     comments.forEach((comment) => {
-      const commentrow = document.getElementById('comment-row');
       const pContent = document.createElement('p');
       pContent.classList.add('col-md-8');
       pContent.innerHTML += `

@@ -86,11 +86,6 @@ const displaySchedules = () => {
   info.show.id
 }"></i> <span id="title-like-${
   info.show.id
-}">0</span></small>
-                                    <small class="text-muted"><i class="fas fa-comment comment-counter" data-id="${
-  info.show.id
-}"></i> <span id="comment-size-${
-  info.show.id
 }">0</span></small> 
                                 </div>
                             </div>
@@ -106,7 +101,6 @@ const displaySchedules = () => {
   });
 };
 
-// const numberOfLikes = (id) => {};
 displaycommentsPopup();
 displaySchedules();
 
