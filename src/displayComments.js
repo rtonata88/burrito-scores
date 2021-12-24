@@ -1,6 +1,7 @@
 import * as bootstrap from 'bootstrap';
 import { getMovieInformation } from './schedule.js';
 import { recordComment, getComments } from './involvement.js';
+import commentCounter from './commentsCounter.js';
 
 const saveComment = () => {
   const comments = document.querySelector('.commentBtn');
@@ -22,6 +23,21 @@ const displayComments = (movieId) => {
     comments.forEach((comment) => {
       console.log(comment.comment);
       console.log(comment.username);
+      console.log(comments.creation_date);
+      const movieContainer = document.getElementById('movieContainer');
+      const section = document.createElement('section');
+      section.innerHTML += `
+          <section class="row col-md-8">
+          <div class="card mb-2">
+            <div class="card-body">
+            <p><b>${comment.username}</b></p>
+            <p>${comment.creation_date}</p>
+            <p>${comment.comment}</p>
+            </div>
+          </div>
+        </section>
+        `;
+      movieContainer.appendChild(section);
     });
   });
 };
