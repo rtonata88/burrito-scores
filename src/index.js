@@ -64,13 +64,19 @@ const displaySchedules = () => {
   let container = "";
 
   schedules.then((schedule) => {
-    titlesCount(schedule.length);
+    let titlesArray = [];
+
     schedule.forEach((item) => {
       // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
-      const image =
-        info.show.image === null ? myImage.src : info.show.image.medium;
-      container += `<div class="col-md-2 col-sm-12" id="movie-${info.show.id}">
+      if (!titlesArray.includes(info.show.id)) {
+        titlesArray.push(info.show.id);
+
+        const image =
+          info.show.image === null ? myImage.src : info.show.image.medium;
+        container += `<div class="col-md-2 col-sm-12" id="movie-${
+          info.show.id
+        }">
                         <div class="card shadow-sm">
                             <img src="${image}" alt="${info.show.name}">
                             <div class="card-body">
@@ -86,13 +92,15 @@ const displaySchedules = () => {
                                     <small class="text-muted likes"><i class="fas fa-heart like" data-id="${
                                       info.show.id
                                     }"></i> <span id="title-like-${
-        info.show.id
-      }">0</span></small> 
+          info.show.id
+        }">0</span></small> 
                                 </div>
                             </div>
                         </div>
                     </div>`;
+      }
     });
+    titlesCount(titlesArray.length);
     moviesContainer.innerHTML = container;
     diplayLikes();
     displaycommentsPopup();

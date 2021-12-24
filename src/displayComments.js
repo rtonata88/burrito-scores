@@ -21,10 +21,11 @@ const commentsCount = (count) => {
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
     commentsCount(comments.length);
-    if (comments.length > 0) {
-      let commentsContainer = document.getElementById("comments-container");
+    let commentsContainer = document.getElementById("comments-container");
+    commentsContainer.innerHTML = "";
+    let commentsContent = "";
 
-      let commentsContent = "";
+    if (comments.length > 0) {
       comments.forEach((comment) => {
         commentsContent += `<p>
                             ${comment.comment}
@@ -46,40 +47,48 @@ const saveComment = () => {
   comments.addEventListener("click", (e) => {
     const username = document.querySelector("#username").value;
     const comment = document.querySelector("#comment").value;
-    const commentSuccessMessage = document.getElementById(
-      "comment-success-message"
-    );
-    recordComment(
-      JSON.stringify({
-        item_id: e.target.dataset.id,
-        username,
-        comment,
-      })
-    );
-    const commentsCountContainer = document.getElementById("comments-count");
-    let numberOfComments = parseInt(commentsCountContainer.innerHTML, 10);
-    numberOfComments++;
-    commentsCountContainer.innerHTML = numberOfComments;
 
-    commentSuccessMessage.classList.remove("d-none");
-    document.querySelector("#username").value = "";
-    document.querySelector("#comment").value = "";
+    if (/\w/.test(username) && /\w/.test(comment)) {
+      recordComment(
+        JSON.stringify({
+          item_id: e.target.dataset.id,
+          username,
+          comment,
+        })
+      );
+      const commentSuccessMessage = document.getElementById(
+        "comment-success-message"
+      );
+      const commentsCountContainer = document.getElementById("comments-count");
+      let numberOfComments = parseInt(commentsCountContainer.innerHTML, 10);
+      numberOfComments++;
+      commentsCountContainer.innerHTML = numberOfComments;
 
-    const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
+      commentSuccessMessage.classList.remove("d-none");
+      document.querySelector("#username").value = "";
+      document.querySelector("#comment").value = "";
 
-    var newComment = document.createElement("p");
-    newComment.innerHTML = `<p>
+      const today = new Date();
+      const date = `${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()}`;
+
+      var newComment = document.createElement("p");
+      newComment.innerHTML = `<p>
                             ${comment}
                             <figcaption class="blockquote-footer">
                               <em><strong>${username}</strong> on </em><cite>${date}</cite>
                             </figcaption>
                             <hr>
                           </p>`;
-    let commentsContainer = document.getElementById("comments-container");
-    commentsContainer.appendChild(newComment);
+      let commentsContainer = document.getElementById("comments-container");
+      commentsContainer.appendChild(newComment);
+    } else {
+      const commentErrorMessage = document.getElementById(
+        "comment-error-message"
+      );
+      commentErrorMessage.classList.remove("d-none");
+    }
   });
 };
 
@@ -151,6 +160,10 @@ const displaycommentsPopup = () => {
         "comment-success-message"
       );
       commentSuccessMessage.classList.add("d-none");
+      const commentErrorMessage = document.getElementById(
+        "comment-error-message"
+      );
+      commentErrorMessage.classList.add("d-none");
     });
   });
 };
