@@ -48,8 +48,6 @@ const displaycommentsPopup = () => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
       movieInformation.then((info) => {
-        console.log(info);
-        // TODO ADD INFO
         const image = info.image.original === null ? myImage.src : info.image.original;
         const movieContainer = document.getElementById('movieContainer');
         const movieHtmlContent = `
@@ -86,10 +84,6 @@ const displaycommentsPopup = () => {
                                         <tr class="table-light">
                                           <th scope="row">Status : </th>
                                           <td>${info.status}</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">Type : </th>
-                                          <td>${info.schedule.type}</td>
                                         </tr>
                                       </tbody>
                                   </table>
