@@ -4,7 +4,7 @@ import './style.css';
 import noImage from './assets/no_image.png';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { getSchedules } from './schedule.js';
-import { getLikes, recordLike } from './involvement.js';
+import { getLikes, recordLike, getComments } from './involvement.js';
 import displaycommentsPopup from './displayComments.js';
 
 const schedules = getSchedules();
@@ -75,6 +75,7 @@ const displaySchedules = () => {
     });
     moviesContainer.innerHTML = container;
     diplayLikes();
+    DisplayCountComments();
     displaycommentsPopup();
     const likes = document.querySelectorAll('.like');
     likes.forEach((like) => {

@@ -11,7 +11,7 @@ const displaycommentsPopup = () => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
       movieInformation.then((info) => {
-        console.log(info);
+        // console.log(info);
         const movieContainer = document.getElementById('movieContainer');
         const movieHtmlContent = ` <section class="row">
                                       <h3>${info.name}</h3>

@@ -1,9 +1,9 @@
 import { likesEndpoint, commentsEndpoint } from './api.js';
 
-export const commentsCounter = (comments) => {
-  const count = comments.length ? comments.length : 0;
-  return count;
-};
+// export const commentsCounter = (comments) => {
+//   const count = comments.length ? comments.length : 0;
+//   return count;
+// };
 
 export const getLikes = async () => {
   const response = await fetch(likesEndpoint);
