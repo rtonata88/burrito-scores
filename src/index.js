@@ -70,7 +70,7 @@ const displaySchedules = () => {
       const info = item._embedded;
       const image =
         info.show.image === null ? myImage.src : info.show.image.medium;
-      container += `<div class="col-md-2 col-sm-12">
+      container += `<div class="col-md-2 col-sm-12" id="movie-${info.show.id}">
                         <div class="card shadow-sm">
                             <img src="${image}" alt="${info.show.name}">
                             <div class="card-body">
@@ -92,8 +92,6 @@ const displaySchedules = () => {
                             </div>
                         </div>
                     </div>`;
-
-      // numberOfLikes(info.show.id);
     });
     moviesContainer.innerHTML = container;
     diplayLikes();

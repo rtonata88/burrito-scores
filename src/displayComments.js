@@ -5,7 +5,7 @@ import noImage from "./assets/no_image.png";
 
 const displayCommentsCount = (count) => {
   const commentsCountContainer = document.getElementById("comments-count");
-  commentsCountContainer.innerHTML = `(${count})`;
+  commentsCountContainer.innerHTML = count;
 };
 
 const commentsCount = (count) => {
@@ -13,16 +13,14 @@ const commentsCount = (count) => {
     displayCommentsCount(count);
   } else {
     const commentsCountContainer = document.getElementById("comments-count");
-    commentsCountContainer.innerHTML = "";
+    commentsCountContainer.innerHTML = 0;
   }
-
   return count;
 };
 
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
     commentsCount(comments.length);
-    console.log(comments);
     if (comments.length > 0) {
       let commentsContainer = document.getElementById("comments-container");
 
@@ -58,6 +56,11 @@ const saveComment = () => {
         comment,
       })
     );
+    const commentsCountContainer = document.getElementById("comments-count");
+    let numberOfComments = parseInt(commentsCountContainer.innerHTML, 10);
+    numberOfComments++;
+    commentsCountContainer.innerHTML = numberOfComments;
+
     commentSuccessMessage.classList.remove("d-none");
     document.querySelector("#username").value = "";
     document.querySelector("#comment").value = "";
