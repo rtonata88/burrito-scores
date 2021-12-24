@@ -61,8 +61,7 @@ const saveComment = () => {
       );
       const commentsCountContainer = document.getElementById('comments-count');
       let numberOfComments = parseInt(commentsCountContainer.innerHTML, 10);
-      // eslint-disable-next-line no-plusplus
-      numberOfComments++;
+      numberOfComments += 1;
       commentsCountContainer.innerHTML = numberOfComments;
 
       commentSuccessMessage.classList.remove('d-none');

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/named
 import { titlesCount, schedules } from './index.js';
 
 jest.mock('./index');

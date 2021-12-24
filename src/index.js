@@ -58,7 +58,6 @@ const trimTitle = (title) => title.substring(0, 16);
 
 const displaySchedules = () => {
   const myImage = new Image();
-  // eslint-disable-next-line camelcase
   myImage.src = noImage;
   const moviesContainer = document.getElementById('movies-container');
   let container = '';
@@ -67,7 +66,6 @@ const displaySchedules = () => {
     const titlesArray = [];
 
     schedule.forEach((item) => {
-      // eslint-disable-next-line no-underscore-dangle
       const info = item._embedded;
       if (!titlesArray.includes(info.show.id)) {
         titlesArray.push(info.show.id);
