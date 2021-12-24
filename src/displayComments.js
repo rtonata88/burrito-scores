@@ -1,19 +1,18 @@
-// import noImage from "./assets/no_image.png";
-import * as bootstrap from "bootstrap";
-import { getMovieInformation } from "./schedule.js";
-import { recordComment, getComments } from "./involvement.js";
+import * as bootstrap from 'bootstrap';
+import { getMovieInformation } from './schedule.js';
+import { recordComment, getComments } from './involvement.js';
 
 const saveComment = () => {
-  const comments = document.querySelector(".commentBtn");
-  comments.addEventListener("click", (e) => {
-    const username = document.querySelector("#username").value;
-    const comment = document.querySelector("#comment").value;
+  const comments = document.querySelector('.commentBtn');
+  comments.addEventListener('click', (e) => {
+    const username = document.querySelector('#username').value;
+    const comment = document.querySelector('#comment').value;
     recordComment(
       JSON.stringify({
         item_id: e.target.dataset.id,
         username,
         comment,
-      })
+      }),
     );
   });
 };
@@ -28,16 +27,16 @@ const displayComments = (movieId) => {
 };
 
 const displaycommentsPopup = () => {
-  const showDetails = document.querySelectorAll(".show-details");
-  const modal = new bootstrap.Modal(document.getElementById("myModal"));
+  const showDetails = document.querySelectorAll('.show-details');
+  const modal = new bootstrap.Modal(document.getElementById('myModal'));
 
   showDetails.forEach((detail) => {
-    detail.addEventListener("click", (e) => {
+    detail.addEventListener('click', (e) => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
       movieInformation.then((info) => {
-        //console.log(info);
-        const movieContainer = document.getElementById("movieContainer");
+        console.log(info); // TODO ADD INFO
+        const movieContainer = document.getElementById('movieContainer');
         const movieHtmlContent = ` <section class="row">
                                       <h3>${info.name}</h3>
                                     <section class="col-md-4">

@@ -29,7 +29,7 @@ const recordLikeInteraction = () => {
       recordLike(
         JSON.stringify({
           item_id: e.target.dataset.id,
-        })
+        }),
       );
       e.target.classList.add('text-danger');
 
@@ -44,14 +44,14 @@ const recordLikeInteraction = () => {
   });
 };
 
-const titlesCount = (count) => {
-  displayTitleCount(count);
-  return count;
-};
-
 const displayTitleCount = (count) => {
   const titleCountContainer = document.getElementById('title-count');
   titleCountContainer.innerHTML = `(${count})`;
+};
+
+const titlesCount = (count) => {
+  displayTitleCount(count);
+  return count;
 };
 
 const trimTitle = (title) => title.substring(0, 16);
@@ -109,3 +109,5 @@ const displaySchedules = () => {
 // const numberOfLikes = (id) => {};
 displaycommentsPopup();
 displaySchedules();
+
+export default displayTitleCount();
