@@ -1,10 +1,10 @@
-import * as bootstrap from "bootstrap";
-import { getMovieInformation } from "./schedule.js";
-import { recordComment, getComments } from "./involvement.js";
-import noImage from "./assets/no_image.png";
+import * as bootstrap from 'bootstrap';
+import { getMovieInformation } from './schedule.js';
+import { recordComment, getComments } from './involvement.js';
+import noImage from './assets/no_image.png';
 
 const displayCommentsCount = (count) => {
-  const commentsCountContainer = document.getElementById("comments-count");
+  const commentsCountContainer = document.getElementById('comments-count');
   commentsCountContainer.innerHTML = count;
 };
 
@@ -12,7 +12,7 @@ const commentsCount = (count) => {
   if (count > 0) {
     displayCommentsCount(count);
   } else {
-    const commentsCountContainer = document.getElementById("comments-count");
+    const commentsCountContainer = document.getElementById('comments-count');
     commentsCountContainer.innerHTML = 0;
   }
   return count;
@@ -21,9 +21,9 @@ const commentsCount = (count) => {
 const displayComments = (movieId) => {
   getComments(movieId).then((comments) => {
     commentsCount(comments.length);
-    let commentsContainer = document.getElementById("comments-container");
-    commentsContainer.innerHTML = "";
-    let commentsContent = "";
+    const commentsContainer = document.getElementById('comments-container');
+    commentsContainer.innerHTML = '';
+    let commentsContent = '';
 
     if (comments.length > 0) {
       comments.forEach((comment) => {
@@ -37,16 +37,16 @@ const displayComments = (movieId) => {
       });
       commentsContainer.innerHTML = commentsContent;
     } else {
-      commentsContainer.innerHTML = "<em>No comments</em>";
+      commentsContainer.innerHTML = '<em>No comments</em>';
     }
   });
 };
 
 const saveComment = () => {
-  const comments = document.querySelector(".commentBtn");
-  comments.addEventListener("click", (e) => {
-    const username = document.querySelector("#username").value;
-    const comment = document.querySelector("#comment").value;
+  const comments = document.querySelector('.commentBtn');
+  comments.addEventListener('click', (e) => {
+    const username = document.querySelector('#username').value;
+    const comment = document.querySelector('#comment').value;
 
     if (/\w/.test(username) && /\w/.test(comment)) {
       recordComment(
@@ -54,26 +54,27 @@ const saveComment = () => {
           item_id: e.target.dataset.id,
           username,
           comment,
-        })
+        }),
       );
       const commentSuccessMessage = document.getElementById(
-        "comment-success-message"
+        'comment-success-message',
       );
-      const commentsCountContainer = document.getElementById("comments-count");
+      const commentsCountContainer = document.getElementById('comments-count');
       let numberOfComments = parseInt(commentsCountContainer.innerHTML, 10);
+      // eslint-disable-next-line no-plusplus
       numberOfComments++;
       commentsCountContainer.innerHTML = numberOfComments;
 
-      commentSuccessMessage.classList.remove("d-none");
-      document.querySelector("#username").value = "";
-      document.querySelector("#comment").value = "";
+      commentSuccessMessage.classList.remove('d-none');
+      document.querySelector('#username').value = '';
+      document.querySelector('#comment').value = '';
 
       const today = new Date();
       const date = `${today.getFullYear()}-${
         today.getMonth() + 1
       }-${today.getDate()}`;
 
-      var newComment = document.createElement("p");
+      const newComment = document.createElement('p');
       newComment.innerHTML = `<p>
                             ${comment}
                             <figcaption class="blockquote-footer">
@@ -81,38 +82,38 @@ const saveComment = () => {
                             </figcaption>
                             <hr>
                           </p>`;
-      let commentsContainer = document.getElementById("comments-container");
+      const commentsContainer = document.getElementById('comments-container');
       commentsContainer.appendChild(newComment);
     } else {
       const commentErrorMessage = document.getElementById(
-        "comment-error-message"
+        'comment-error-message',
       );
-      commentErrorMessage.classList.remove("d-none");
+      commentErrorMessage.classList.remove('d-none');
     }
   });
 };
 
 const displaycommentsPopup = () => {
-  const showDetails = document.querySelectorAll(".show-details");
-  const modal = new bootstrap.Modal(document.getElementById("myModal"));
+  const showDetails = document.querySelectorAll('.show-details');
+  const modal = new bootstrap.Modal(document.getElementById('myModal'));
   const myImage = new Image();
   myImage.src = noImage;
 
   showDetails.forEach((detail) => {
-    detail.addEventListener("click", (e) => {
+    detail.addEventListener('click', (e) => {
       const movieId = e.target.dataset.id;
       const movieInformation = getMovieInformation(movieId);
-      const movieInfoContainer = document.getElementById("movie-info");
-      movieInfoContainer.innerHTML = "";
+      const movieInfoContainer = document.getElementById('movie-info');
+      movieInfoContainer.innerHTML = '';
 
-      const movieTitle = document.getElementById("movie-title");
-      movieTitle.innerHTML = "";
+      const movieTitle = document.getElementById('movie-title');
+      movieTitle.innerHTML = '';
 
-      const movieCoverImage = document.getElementById("movie-cover-image");
-      movieCoverImage.innerHTML = "";
+      const movieCoverImage = document.getElementById('movie-cover-image');
+      movieCoverImage.innerHTML = '';
 
-      const commentsForm = document.getElementById("comments-form");
-      commentsForm.innerHTML = "";
+      const commentsForm = document.getElementById('comments-form');
+      commentsForm.innerHTML = '';
 
       movieInformation.then((info) => {
         const image = info.image === null ? myImage.src : info.image.original;
@@ -157,13 +158,13 @@ const displaycommentsPopup = () => {
       displayComments(movieId);
 
       const commentSuccessMessage = document.getElementById(
-        "comment-success-message"
+        'comment-success-message',
       );
-      commentSuccessMessage.classList.add("d-none");
+      commentSuccessMessage.classList.add('d-none');
       const commentErrorMessage = document.getElementById(
-        "comment-error-message"
+        'comment-error-message',
       );
-      commentErrorMessage.classList.add("d-none");
+      commentErrorMessage.classList.add('d-none');
     });
   });
 };
