@@ -1,7 +1,6 @@
 // import noImage from "./assets/no_image.png";
 import * as bootstrap from 'bootstrap';
 import { getMovieInformation } from './schedule.js';
-// import { getComments, recordComment } from "./involvement.js";
 
 const displaycommentsPopup = () => {
   const showDetails = document.querySelectorAll('.show-details');
@@ -27,7 +26,7 @@ const displaycommentsPopup = () => {
                                       <textarea class="form-control" id="comment" rows="3" placeholder="Type your commet here"></textarea>
                                     </div>
                                     <div class="mt-3">
-                                      <buttton class="btn btn-dark">Submit</button>
+                                      <buttton class="btn btn-dark commentBtn">Submit</button>
                                     </div>
                                     </section>
                                 </section>`;

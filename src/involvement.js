@@ -1,4 +1,4 @@
-import { likesEndpoint, commentsEndpoint } from "./api.js";
+import { likesEndpoint, commentsEndpoint } from './api.js';
 
 export const commentsCounter = (comments) => {
   const count = comments.length ? comments.length : 0;
@@ -19,11 +19,11 @@ export const getComments = async (id) => {
 
 export const recordLike = async (data) => {
   await fetch(likesEndpoint, {
-    method: "POST",
+    method: 'POST',
     body: data,
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 };
@@ -31,11 +31,11 @@ export const recordLike = async (data) => {
 export const recordComment = async (newComment) => {
   console.log(newComment);
   await fetch(commentsEndpoint, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ newComment }), // TODO test without strng
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 };
