@@ -1,8 +1,9 @@
-import { titlesCount, schedules } from "./index.js";
+// eslint-disable-next-line import/named
+import { titlesCount, schedules } from './index.js';
 
-jest.mock("./index");
+jest.mock('./index');
 
-test("Count items", async () => {
+test('Count items', async () => {
   const schedule = await schedules();
   expect(titlesCount(schedule.length)).toBe(3);
 });
