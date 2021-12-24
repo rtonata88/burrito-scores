@@ -1,7 +1,7 @@
 // import noImage from "./assets/no_image.png";
 import * as bootstrap from "bootstrap";
 import { getMovieInformation } from "./schedule.js";
-import { recordComment } from "./involvement.js";
+import { recordComment, getComments } from "./involvement.js";
 
 const saveComment = () => {
   const comments = document.querySelector(".commentBtn");
@@ -15,6 +15,15 @@ const saveComment = () => {
         comment,
       })
     );
+  });
+};
+
+const displayComments = (movieId) => {
+  getComments(movieId).then((comments) => {
+    comments.forEach((comment) => {
+      console.log(comment.comment);
+      console.log(comment.username);
+    });
   });
 };
 
@@ -51,6 +60,7 @@ const displaycommentsPopup = () => {
         saveComment();
       });
       modal.show();
+      displayComments(movieId);
     });
   });
 };

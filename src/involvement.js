@@ -12,7 +12,7 @@ export const getLikes = async () => {
 };
 
 export const getComments = async (id) => {
-  const response = await fetch(`${commentsEndpoint}/comments?item_id=${id}`);
+  const response = await fetch(`${commentsEndpoint}?item_id=${id}`);
   const comments = await response.json();
   return comments;
 };
