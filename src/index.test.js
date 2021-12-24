@@ -2,8 +2,7 @@ import { titlesCount, schedules } from './index.js';
 
 jest.mock('./index');
 
-test('Count items', () => {
-  schedules().then((schedule) => {
-    expect(titlesCount(schedule.length)).toBe(2);
-  });
+test('Count items', async () => {
+  const schedule = await schedules();
+  expect(titlesCount(schedule.length)).toBe(3);
 });
