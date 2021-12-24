@@ -1,14 +1,8 @@
-import { titlesCount, schedules } from './index.js';
+import { titlesCount, schedules } from "./index.js";
 
-jest.mock('./index');
+jest.mock("./index");
 
-test('Count items', (done) => {
-  schedules().then((schedule) => {
-    try {
-      expect(titlesCount(schedule.length)).toBe(2);
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
+test("Count items", async () => {
+  const schedule = await schedules();
+  expect(titlesCount(schedule.length)).toBe(3);
 });
